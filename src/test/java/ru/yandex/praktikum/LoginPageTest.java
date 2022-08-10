@@ -1,11 +1,11 @@
 package ru.yandex.praktikum;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.junit4.DisplayName;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.Assert.assertTrue;
-
 public class LoginPageTest extends BaseTest {
     LoginPage loginPage = Selenide.page(LoginPage.class);
     RegisterPage registerPage = Selenide.page(RegisterPage.class);
@@ -23,6 +23,12 @@ public class LoginPageTest extends BaseTest {
         registerPage.clickRegisterButton();
         assertTrue("Переход на страницу входа не выполнен!", loginPage.onLoginPage());
     }
+    @After
+    public void exit() {
+        mainPage.clickLkButton();
+        profilePage.clickExitButton();
+    }
+
     @Test
     @DisplayName("login through the Personal account button")
     public void loginTroughPersonalAccountButton() {
@@ -33,8 +39,6 @@ public class LoginPageTest extends BaseTest {
         loginPage.setPassword(user.password);
         loginPage.clickLoginButton();
         assertTrue(mainPage.checkOrderButton());
-        mainPage.clickLkButton();
-        profilePage.clickExitButton();
     }
     @Test
     @DisplayName("login by clicking the Login button on the main page")
@@ -46,8 +50,6 @@ public class LoginPageTest extends BaseTest {
         loginPage.setPassword(user.password);
         loginPage.clickLoginButton();
         assertTrue(mainPage.checkOrderButton());
-        mainPage.clickLkButton();
-        profilePage.clickExitButton();
     }
     @Test
     @DisplayName("Login through the button in the registration form")
@@ -59,8 +61,6 @@ public class LoginPageTest extends BaseTest {
         loginPage.setPassword(user.password);
         loginPage.clickLoginButton();
         assertTrue(mainPage.checkOrderButton());
-        mainPage.clickLkButton();
-        profilePage.clickExitButton();
     }
     @Test
     @DisplayName("Login through the button in the password recovery form")
@@ -72,7 +72,5 @@ public class LoginPageTest extends BaseTest {
         loginPage.setPassword(user.password);
         loginPage.clickLoginButton();
         assertTrue(mainPage.checkOrderButton());
-        mainPage.clickLkButton();
-        profilePage.clickExitButton();
     }
 }

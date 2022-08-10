@@ -6,7 +6,6 @@ import org.junit.Test;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 public class ProfilePageTest extends BaseTest{
     LoginPage loginPage = Selenide.page(LoginPage.class);
     RegisterPage registerPage = Selenide.page(RegisterPage.class);
@@ -24,16 +23,18 @@ public class ProfilePageTest extends BaseTest{
         registerPage.clickRegisterButton();
         assertTrue("Переход на страницу входа не выполнен!", loginPage.onLoginPage());
     }
-    @Test
-    @DisplayName("Check the transition by clicking on Personal Account")
-    public void checkTransitionPersonalAccount() {
+    public void login(){
         mainPage = open(MainPage.URL, MainPage.class);
         mainPage.clickLkButton();
         loginPage.onLoginPage();
         loginPage.setEmail(user.email);
         loginPage.setPassword(user.password);
         loginPage.clickLoginButton();
-        assertTrue(mainPage.checkOrderButton());
+    }
+    @Test
+    @DisplayName("Check the transition by clicking on Personal Account")
+    public void checkTransitionPersonalAccount() {
+        login();
         mainPage.clickLkButton();
         assertEquals(user.name, profilePage.getNameField());
         assertEquals(user.email.toLowerCase(), profilePage.getEmailField());
@@ -41,45 +42,26 @@ public class ProfilePageTest extends BaseTest{
     @Test
     @DisplayName("Check the transition by clicking on the Constructor")
     public void checkTransitionConstructor() {
-        mainPage = open(MainPage.URL, MainPage.class);
-        mainPage.clickLkButton();
-        loginPage.onLoginPage();
-        loginPage.setEmail(user.email);
-        loginPage.setPassword(user.password);
-        loginPage.clickLoginButton();
-        assertTrue(mainPage.checkOrderButton());
+        login();
         mainPage.clickLkButton();
         profilePage.clickConstructorButton();
-        mainPage.checkHeadingConstructBurger();
-        mainPage.checkOrderButton();
+        assertTrue(mainPage.checkHeadingConstructBurger());
     }
     @Test
-    @DisplayName("Check click-through to the Stellar Burgers logo")
+    @DisplayName("Check click through to the Stellar Burgers logo")
     public void checkTransitionBurgersLogo() {
-        mainPage = open(MainPage.URL, MainPage.class);
-        mainPage.clickLkButton();
-        loginPage.onLoginPage();
-        loginPage.setEmail(user.email);
-        loginPage.setPassword(user.password);
-        loginPage.clickLoginButton();
-        assertTrue(mainPage.checkOrderButton());
+        login();
         mainPage.clickLkButton();
         profilePage.clickLogoSB();
         mainPage.checkHeadingConstructBurger();
-        mainPage.checkOrderButton();
+        assertTrue(mainPage.checkOrderButton());
     }
     @Test
     @DisplayName("Check the exit by clicking the Exit button in your account")
     public void checkExitAccount() {
-        mainPage = open(MainPage.URL, MainPage.class);
-        mainPage.clickLkButton();
-        loginPage.onLoginPage();
-        loginPage.setEmail(user.email);
-        loginPage.setPassword(user.password);
-        loginPage.clickLoginButton();
-        assertTrue(mainPage.checkOrderButton());
+        login();
         mainPage.clickLkButton();
         profilePage.clickExitButton();
-        loginPage.onLoginPage();
+        assertTrue(loginPage.onLoginPage());
     }
 }

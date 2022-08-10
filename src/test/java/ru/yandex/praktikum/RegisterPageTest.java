@@ -5,7 +5,6 @@ import org.junit.Test;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 public class RegisterPageTest extends BaseTest {
     private static RegisterPage registerPage;
     LoginPage loginPage = Selenide.page(LoginPage.class);

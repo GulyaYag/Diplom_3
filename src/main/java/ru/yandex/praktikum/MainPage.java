@@ -28,7 +28,7 @@ public class MainPage {
     private SelenideElement sauceButton;
 
     //Кнопка Булки
-    @FindBy(how = How.XPATH, using = ".//span[contains(text(),'Булки')]")
+    @FindBy(how = How.XPATH, using = ".//span[text()='Булки']")
     private SelenideElement bunButton;
 
     //Кнопка Начинки
@@ -51,10 +51,8 @@ public class MainPage {
         lkButton.click();
     }
 
-    public void clickBunButton() {
-        bunButton.click();
+    public void clickBunButton() {bunButton.click();
     }
-
     public void clickSauceButton() {
         sauceButton.click();
     }
